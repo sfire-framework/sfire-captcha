@@ -1,0 +1,35 @@
+{
+    "name": "sfire-framework/sfire-captcha",
+    "description": "Turing test to tell computers and humans apart made easy with sFire captcha.",
+    "keywords": [
+        "framework",
+        "sfire",
+        "image",
+        "images",
+        "captcha",
+        "verification",
+        "validation"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Kris Kuiper",
+            "email": "kris@sfire.io"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "require": {
+        "php": ">=7.4",
+        "ext-exif": "*",
+        "ext-gd": "*",
+        "sfire-framework/sfire-filecontrol": ">=1.0.0",
+        "sfire-framework/sfire-image": ">=1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "sFire\\Captcha\\": "./src/"
+        }
+    }
+}
