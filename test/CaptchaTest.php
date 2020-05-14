@@ -13,6 +13,10 @@ use PHPUnit\Framework\TestCase;
 use sFire\Captcha;
 use sFire\FileControl\File;
 
+
+/**
+ * Class CaptchaTest
+ */
 final class CaptchaTest extends TestCase {
 
 

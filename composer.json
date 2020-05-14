@@ -1,6 +1,7 @@
 {
     "name": "sfire-framework/sfire-captcha",
     "description": "Turing test to tell computers and humans apart made easy with sFire captcha.",
+    "homepage": "https://sfire.io",
     "keywords": [
         "framework",
         "sfire",
@@ -24,8 +25,8 @@
         "php": ">=7.4",
         "ext-exif": "*",
         "ext-gd": "*",
-        "sfire-framework/sfire-filecontrol": ">=1.0.0",
-        "sfire-framework/sfire-image": ">=1.0.0"
+        "sfire-framework/sfire-filecontrol": "1.0.*",
+        "sfire-framework/sfire-image": "1.0.*"
     },
     "autoload": {
         "psr-4": {
