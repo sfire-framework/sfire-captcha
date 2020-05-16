@@ -281,6 +281,15 @@ class Captcha {
 	}
 
 
+    /**
+     * Returns the noise level
+     * @return null|int
+     */
+    public function getNoise(): ?int {
+        return $this -> noice;
+    }
+
+
 	/**
 	 * Generates a random captcha value (without similar characters like o, O and 0)
 	 * @param int $length The length of the text, default 5
@@ -302,6 +311,8 @@ class Captcha {
 		for($i = 0; $i < $length; $i++) {
 			$str .= $array[array_rand($array, 1)];
 		}
+
+		$this -> text = $str;
 
 		return $str;
 	}
