@@ -8,14 +8,14 @@
     - [Instance](#instance)
     - [Configuration](#configuration)
 - [Usage](#usage)
-    - [Setting a background image](#retrieving-data-from-cache)
-    - [Setting a font file](#storing-data-in-cache)
-    - [Setting a font color](#removing-data-from-cache)
-    - [Setting the font size](#renewing-expiration-of-stored-data)
-    - [Setting text characters angle](#check-if-cache-exists)
-    - [Setting custom noise level](#clear-all-cache-data)
-    - [Setting custom captcha text](#clear-all-cache-data)
-    - [Retrieving the captcha text](#clear-all-cache-data)
+    - [Setting a background image](setting-a-background-image)
+    - [Setting a font file](setting-a-font-file)
+    - [Setting a font color](setting-a-font-color)
+    - [Setting the font size](setting-the-font-size)
+    - [Setting text characters angle](setting-text-characters-angle)
+    - [Setting custom noise level](setting-custom-noise-level)
+    - [Setting custom captcha text](setting-custom-captcha-text)
+    - [Retrieving the captcha text](retrieving-the-captcha-text)
     - [Generating the captcha image](#generating-the-captcha-image)
 - [Examples](#examples)
 - [Notes](#notes)
@@ -91,7 +91,7 @@ To retrieve the font file you can use the `getFont()` method.
 
 
 #### Setting a font color
-Once you set a font, you can give the generated text a color by using the `setFontColor()` method. This method takes a RGB or Hexadecimal color.
+Once you set a font, you can give the generated text a color by using the `setFontColor()` method. This method takes an RGB or Hexadecimal color.
 
 ##### Syntax
 ```php
@@ -235,7 +235,7 @@ $captcha -> generate('/var/www/data/captcha.png'); //Save the captcha image as P
 
 ## Examples
 
-### Generating and saving a captcha image and retrieving the captcha text
+### Generate and saving the captcha image
 ```php
 $captcha = new Captcha();
 $captcha -> setBackgroundImage('/var/www/data/captcha-bg.jpg');
@@ -245,7 +245,7 @@ $captcha -> generate('/var/www/data/captcha.jpg'); //Generate and save it locall
 $text = $captcha -> getText();
 ```
 
-### Generating and saving a captcha image and retrieving the captcha text
+### Generating and output captcha image directly to the client/browser
 ```php
 $captcha = new Captcha();
 $captcha -> generateText(8); //Generate a text with the length of 8
