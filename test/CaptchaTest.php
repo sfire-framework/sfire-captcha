@@ -10,7 +10,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use sFire\Captcha;
+use sFire\Captcha\Captcha;
 use sFire\FileControl\File;
 
 
@@ -164,7 +164,9 @@ final class CaptchaTest extends TestCase {
     public function testSettingNoise(): void {
 
         $captcha = new Captcha();
+        $this -> assertNull($captcha -> getNoise());
         $captcha -> setNoise(10);
+        $this -> assertEquals(10, $captcha -> getNoise());
 
         $this -> expectException(ErrorException :: class);
         $captcha -> setNoise(0);
