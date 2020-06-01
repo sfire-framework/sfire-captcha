@@ -23,35 +23,50 @@
     - [Generated text similar character exclusion](#generated-text-similar-character-exclusion)
 
 
+
 ## Introduction
+
 CAPTCHA stands for Completely Automated Public Turing test to tell Computers and Humans Apart. In other words, CAPTCHA determines whether the user is real or a spam robot. CAPTCHAs stretch or manipulate letters and numbers, and rely on human ability to determine which symbols they are. sFire Captcha is an easy-to-use interface for creating those captcha images.
 
 
+
 ## Requirements
+
 - [GD Library](https://www.php.net/manual/en/book.image.php)
 - Freetype support (--with-freetype-dir=DIR ) for [imagettfbbox](https://www.php.net/imagettfbbox)
 
 
+
 ## Installation
+
 Install this package using [Composer](https://getcomposer.org/):
 ```shell script
 composer require sfire-framework/sfire-captcha
 ```
 
 
+
 ## Setup
+
 ### Namespace
 ```php
 use sFire\Captcha\Captcha;
 ```
 
+
+
 ### Instance
+
 ```php
 $captcha = new Captcha();
 ```
 
+
+
 ### Configuration
+
 There are no configuration settings needed for this package.
+
 
 
 ## Usage
@@ -173,7 +188,9 @@ $captcha -> setNoise(50);
 To retrieve the noise level you can use the `getNoise()` method.
 
 
+
 #### Setting custom captcha text
+
 By default sFire Captcha will generate a custom text, but you can manually overwrite this by using the `setText()` method.
 
 ##### Syntax
@@ -200,7 +217,9 @@ $captcha -> generateText(5, ['a', 'b', 'c', 1, 2, 3]); //Output similar to "2b33
 ```
 
 
+
 #### Retrieving the captcha text
+
 To validate the captcha, you need to know what the used text is. This can be done with the `getText()` method, which will provide the generated or [custom text](#setting-custom-captcha-text).
 
 ##### Syntax
@@ -214,7 +233,9 @@ $captcha -> setText('8Jd52aX');
 ```
 
 
+
 #### Generating the captcha image
+
 You can generate the captcha image by calling the `generate()` method. You can choose to save the file locally or output the image directly to the client/browser.
 
 ##### Syntax
@@ -233,6 +254,8 @@ $captcha -> generate('/var/www/data/captcha.jpg'); //Save the captcha image as J
 $captcha -> generate('/var/www/data/captcha.png'); //Save the captcha image as PNG
 ```
 
+
+
 ## Examples
 
 ### Generate and saving the captcha image
@@ -245,7 +268,10 @@ $captcha -> generate('/var/www/data/captcha.jpg'); //Generate and save it locall
 $text = $captcha -> getText();
 ```
 
+
+
 ### Generating and output captcha image directly to the client/browser
+
 ```php
 $captcha = new Captcha();
 $captcha -> generateText(8); //Generate a text with the length of 8
@@ -261,6 +287,7 @@ $text = $captcha -> getText();
 ```
 
 
+
 ## Notes
 
 ### Chaining
@@ -269,5 +296,8 @@ Some of the provided methods may be chained together:
 $captcha -> setBackgroundImage('/var/www/data/captcha-bg.jpg') -> setFont('/var/www/data/captcha.ttf') -> generate();
 ```
 
+
+
 ### Generated text similar character exclusion
+
 Generated text by default don't include similar characters like the letters "o" and "O" and the number "0".
