@@ -23,8 +23,6 @@
     },
     "require": {
         "php": ">=7.4",
-        "ext-exif": "*",
-        "ext-gd": "*",
         "sfire-framework/sfire-filecontrol": "1.0.*",
         "sfire-framework/sfire-image": "1.0.*"
     },
