@@ -26,54 +26,54 @@ use sFire\FileControl\File;
 class Captcha {
 
 
-	/**
-	 * Contains a File instance for the background image of the captcha image
-	 * @var null|File
-	 */
-	private ?File $backgroundImage = null;
+    /**
+     * Contains a File instance for the background image of the captcha image
+     * @var null|File
+     */
+    private ?File $backgroundImage = null;
 
 
-	/**
-	 * Contains a File instance with the current font file
-	 * @var null|File
-	 */
-	private ?File $font = null;
+    /**
+     * Contains a File instance with the current font file
+     * @var null|File
+     */
+    private ?File $font = null;
 
 
-	/**
-	 * Contains the minimum and maximum font size to be displayed in the captcha image
-	 * @var array
-	 */
-	private array $fontsize = ['min' => 15, 'max' => 20];
+    /**
+     * Contains the minimum and maximum font size to be displayed in the captcha image
+     * @var array
+     */
+    private array $fontsize = ['min' => 15, 'max' => 20];
 
 
-	/**
-	 * Contains the information for the angle/degree a single character is displayed in the captcha image
-	 * @var array
-	 */
-	private array $angle = ['min' => -30, 'max' => 30];
+    /**
+     * Contains the information for the angle/degree a single character is displayed in the captcha image
+     * @var array
+     */
+    private array $angle = ['min' => -30, 'max' => 30];
 
 
-	/**
-	 * Contains the font color in RGB format
-	 * @var array
-	 */
-	private array $color = ['r' => 0, 'g' => 0, 'b' => 0];
+    /**
+     * Contains the font color in RGB format
+     * @var array
+     */
+    private array $color = ['r' => 0, 'g' => 0, 'b' => 0];
 
 
-	/**
-	 * Contains the text to be displayed in the captcha image
-	 * @var null|string
-	 */
-	private ?string $text = null;
+    /**
+     * Contains the text to be displayed in the captcha image
+     * @var null|string
+     */
+    private ?string $text = null;
 
 
-	/**
-	 * Contains the level of noise in the captcha image
+    /**
+     * Contains the level of noise in the captcha image
      * The higher the level, the more noise
-	 * @var int
-	 */
-	private int $noise = 5;
+     * @var int
+     */
+    private int $noise = 5;
 
 
     /**
@@ -81,12 +81,12 @@ class Captcha {
      * Checks if all the required functions exists
      * @throws BadFunctionCallException
      */
-	public function __construct() {
+    public function __construct() {
 
-		if(false === function_exists('imagettfbbox')) {
-			throw new BadFunctionCallException('Function imagettfbbox should be enabled to use the Captcha class');
-		}
-	}
+        if(false === function_exists('imagettfbbox')) {
+            throw new BadFunctionCallException('Function imagettfbbox should be enabled to use the Captcha class');
+        }
+    }
 
 
     /**
@@ -95,22 +95,22 @@ class Captcha {
      * @return self
      * @throws RuntimeException
      */
-	public function setBackgroundImage(string $image): self {
+    public function setBackgroundImage(string $image): self {
 
-		$file = new File($image);
+        $file = new File($image);
 
-		if(false === $file -> exists()) {
-			throw new RuntimeException(sprintf('Argument 1 passed to %s() must be an existing image', __METHOD__));
-		}
+        if(false === $file -> exists()) {
+            throw new RuntimeException(sprintf('Argument 1 passed to %s() must be an existing image', __METHOD__));
+        }
 
-		if(false === in_array(exif_imagetype($image), [IMAGETYPE_JPEG, IMAGETYPE_PNG])) {
-			throw new RuntimeException(sprintf('Argument 1 passed to %s() must be an image of the type jpg, jpeg or png', __METHOD__));
-		}
+        if(false === in_array(exif_imagetype($image), [IMAGETYPE_JPEG, IMAGETYPE_PNG])) {
+            throw new RuntimeException(sprintf('Argument 1 passed to %s() must be an image of the type jpg, jpeg or png', __METHOD__));
+        }
 
-		$this -> backgroundImage = $file;
+        $this -> backgroundImage = $file;
 
-		return $this;
-	}
+        return $this;
+    }
 
 
     /**
@@ -119,18 +119,18 @@ class Captcha {
      * @return self
      * @throws InvalidArgumentException
      */
-	public function setFont(string $font): self {
+    public function setFont(string $font): self {
 
-		$file = new File($font);
+        $file = new File($font);
 
-		if(false === $file -> exists()) {
-			throw new InvalidArgumentException(sprintf('Argument 1 passed to %s() must be an existing font file', __METHOD__));
-		}
+        if(false === $file -> exists()) {
+            throw new InvalidArgumentException(sprintf('Argument 1 passed to %s() must be an existing font file', __METHOD__));
+        }
 
-		$this -> font = $file;
+        $this -> font = $file;
 
-		return $this;
-	}
+        return $this;
+    }
 
 
     /**
@@ -141,7 +141,7 @@ class Captcha {
      * @return self
      * @throws InvalidArgumentException
      */
-	public function setFontColor($r, int $g = null, int $b = null): self {
+    public function setFontColor($r, int $g = null, int $b = null): self {
 
         if(true === is_string($r) && null === $g && null === $b) {
 
@@ -155,10 +155,10 @@ class Captcha {
             throw new InvalidArgumentException(sprintf('Each color passed to %s() must be between 0 and 255', __METHOD__));
         }
 
-		$this -> color = ['r' => $r, 'g' => $g, 'b' => $b];
+        $this -> color = ['r' => $r, 'g' => $g, 'b' => $b];
 
-		return $this;
-	}
+        return $this;
+    }
 
 
     /**
@@ -169,9 +169,9 @@ class Captcha {
      * @return self
      * @throws InvalidArgumentException
      */
-	public function setFontSize(int $min, int $max = null): self {
+    public function setFontSize(int $min, int $max = null): self {
 
-	    if($min < 1) {
+        if($min < 1) {
             throw new InvalidArgumentException(sprintf('Argument 1 passed to %s() must be at least 1', __METHOD__));
         }
 
@@ -179,23 +179,23 @@ class Captcha {
             throw new InvalidArgumentException(sprintf('Argument 2 passed to %s() must be at least 1', __METHOD__));
         }
 
-		$this -> fontsize = ['min' => $min, 'max' => ($max ?? $min)];
-		return $this;
-	}
+        $this -> fontsize = ['min' => $min, 'max' => ($max ?? $min)];
+        return $this;
+    }
 
 
-	/**
-	 * Sets the minimum and maximum font angle in degrees.
+    /**
+     * Sets the minimum and maximum font angle in degrees.
      * If no maximum font angle is set, maximum will be the same as minimum font angle.
-	 * @param int $min The minimum font angle in degrees
-	 * @param int $max [optional] The maximum font angle in degrees
-	 * @return self
-	 */
-	public function setFontAngle(int $min, int $max = null): self {
+     * @param int $min The minimum font angle in degrees
+     * @param int $max [optional] The maximum font angle in degrees
+     * @return self
+     */
+    public function setFontAngle(int $min, int $max = null): self {
 
-		$this -> angle = ['min' => $min, 'max' => ($max ?? $min)];
-		return $this;
-	}
+        $this -> angle = ['min' => $min, 'max' => ($max ?? $min)];
+        return $this;
+    }
 
 
     /**
@@ -204,81 +204,81 @@ class Captcha {
      * @return self
      * @throws InvalidArgumentException
      */
-	public function setNoise(int $level): self {
+    public function setNoise(int $level): self {
 
-	    if($level < 1) {
-	        throw new InvalidArgumentException(sprintf('Argument 1 passed to %s() must be at least 1', __METHOD__));
+        if($level < 1) {
+            throw new InvalidArgumentException(sprintf('Argument 1 passed to %s() must be at least 1', __METHOD__));
         }
 
-		$this -> noise = $level;
-		return $this;
-	}
+        $this -> noise = $level;
+        return $this;
+    }
 
 
-	/**
-	 * Sets the text that will be displayed in the captcha image
-	 * @param string $text THe text that will be displayed in the captcha image
-	 * @return self
-	 */
-	public function setText(string $text): self {
+    /**
+     * Sets the text that will be displayed in the captcha image
+     * @param string $text THe text that will be displayed in the captcha image
+     * @return self
+     */
+    public function setText(string $text): self {
 
-		$this -> text = $text;
-		return $this;
-	}
-
-
-	/**
-	 * Returns the font
-	 * @return null|File
-	 */
-	public function getFont(): ?File {
-		return $this -> font;
-	}
+        $this -> text = $text;
+        return $this;
+    }
 
 
-	/**
-	 * Returns the font size
-	 * @return array
-	 */
-	public function getFontSize(): array {
-		return $this -> fontsize;
-	}
+    /**
+     * Returns the font
+     * @return null|File
+     */
+    public function getFont(): ?File {
+        return $this -> font;
+    }
 
 
-	/**
-	 * Returns the angle
-	 * @return array
-	 */
-	public function getFontAngle(): array {
-		return $this -> angle;
-	}
+    /**
+     * Returns the font size
+     * @return array
+     */
+    public function getFontSize(): array {
+        return $this -> fontsize;
+    }
 
 
-	/**
-	 * Returns the background image
-	 * @return null|File
-	 */
-	public function getBackgroundImage(): ?File {
-		return $this -> backgroundImage;
-	}
+    /**
+     * Returns the angle
+     * @return array
+     */
+    public function getFontAngle(): array {
+        return $this -> angle;
+    }
 
 
-	/**
-	 * Returns the color in RGB format
-	 * @return array
-	 */
-	public function getFontColor(): array {
-		return $this -> color;
-	}
+    /**
+     * Returns the background image
+     * @return null|File
+     */
+    public function getBackgroundImage(): ?File {
+        return $this -> backgroundImage;
+    }
 
 
-	/**
-	 * Returns the text
-	 * @return null|string 
-	 */
-	public function getText(): ?string {
-		return $this -> text;
-	}
+    /**
+     * Returns the color in RGB format
+     * @return array
+     */
+    public function getFontColor(): array {
+        return $this -> color;
+    }
+
+
+    /**
+     * Returns the text
+     * @return null|string
+     */
+    public function getText(): ?string {
+        return $this -> text;
+    }
 
 
     /**
@@ -290,32 +290,32 @@ class Captcha {
     }
 
 
-	/**
-	 * Generates a random captcha value (without similar characters like o, O and 0)
-	 * @param int $length The length of the text, default 5
+    /**
+     * Generates a random captcha value (without similar characters like o, O and 0)
+     * @param int $length The length of the text, default 5
      * @param array $characters [optional] An array with characters to choose from
-	 * @return string
-	 */
-	public function generateText(int $length = 5, array $characters = []): string {
+     * @return string
+     */
+    public function generateText(int $length = 5, array $characters = []): string {
 
-		$caseInsensitive = ['a', 'c', 'd', 'e', 'f', 'h', 'k', 'm', 'n', 'p', 'r', 't', 'u', 'v', 'w', 'x', 'y'];
-		$caseSensitive 	 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'K', 'M', 'N', 'P', 'R', 'T', 'U', 'V', 'W', 'X', 'Y'];
-		$numbersArray 	 = [3, 4, 5, 6, 7, 8, 9];
-		$array 			 = array_merge($caseInsensitive, $caseSensitive, $numbersArray);
-		$str 			 = '';
+        $caseInsensitive = ['a', 'c', 'd', 'e', 'f', 'h', 'k', 'm', 'n', 'p', 'r', 't', 'u', 'v', 'w', 'x', 'y'];
+        $caseSensitive 	 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'K', 'M', 'N', 'P', 'R', 'T', 'U', 'V', 'W', 'X', 'Y'];
+        $numbersArray 	 = [3, 4, 5, 6, 7, 8, 9];
+        $array 			 = array_merge($caseInsensitive, $caseSensitive, $numbersArray);
+        $str 			 = '';
 
         if(count($characters) > 0) {
             $array = $characters;
         }
 
-		for($i = 0; $i < $length; $i++) {
-			$str .= $array[array_rand($array, 1)];
-		}
+        for($i = 0; $i < $length; $i++) {
+            $str .= $array[array_rand($array, 1)];
+        }
 
-		$this -> text = $str;
+        $this -> text = $str;
 
-		return $str;
-	}
+        return $str;
+    }
 
 
     /**
@@ -325,116 +325,116 @@ class Captcha {
      * @throws InvalidArgumentException
      * @throws BadMethodCallException
      */
-	public function generate(string $file = null): void {
+    public function generate(string $file = null): void {
 
-		if(null === $this -> backgroundImage) {
-			throw new BadMethodCallException('Can not generate captcha image without valid background image. Set background image with setBackgroundImage() method');
-		}
+        if(null === $this -> backgroundImage) {
+            throw new BadMethodCallException('Can not generate captcha image without valid background image. Set background image with setBackgroundImage() method');
+        }
 
-		if(null === $this -> font) {
-			throw new BadMethodCallException('Can not generate captcha image without valid font. Set font with setFont() method');
-		}
+        if(null === $this -> font) {
+            throw new BadMethodCallException('Can not generate captcha image without valid font. Set font with setFont() method');
+        }
 
-		//Generate and set text if not already set
-		if(null === $this -> getText()) {
-			$this -> setText($this -> generateText());
-		}
+        //Generate and set text if not already set
+        if(null === $this -> getText()) {
+            $this -> setText($this -> generateText());
+        }
 
-		$text 	= $this -> getText();
-		$image 	= $this -> backgroundImage;
-		$font 	= $this -> font;
+        $text 	= $this -> getText();
+        $image 	= $this -> backgroundImage;
+        $font 	= $this -> font;
         $width = 0;
 
-		//Add image header
-		if(null === $file) {
-		    header(sprintf('Content-type: %s', $this -> backgroundImage -> getMimeType()));
-		}
-		else {
-			
-			$file = new File($file);
+        //Add image header
+        if(null === $file) {
+            header(sprintf('Content-type: %s', $this -> backgroundImage -> getMimeType()));
+        }
+        else {
 
-			if(false === in_array($file -> getExtension(), ['png', 'jpg', 'jpeg'])) {
-				throw new InvalidArgumentException(sprintf('Argument 1 passed to %s() must have the jpg, jpeg or png extension, "%s" given', __METHOD__, $file -> getExtension()));
-			}
-		}
+            $file = new File($file);
 
-		//Create image
-		switch(strtolower($image -> getExtension())) {
-			
-			case 'png' 	: $img = imagecreatefrompng($image -> getPath()); break;
-			default 	: $img = imagecreatefromjpeg($image -> getPath());
-		}
+            if(false === in_array($file -> getExtension(), ['png', 'jpg', 'jpeg'])) {
+                throw new InvalidArgumentException(sprintf('Argument 1 passed to %s() must have the jpg, jpeg or png extension, "%s" given', __METHOD__, $file -> getExtension()));
+            }
+        }
 
-		//Generate output object
-		$output = [];
+        //Create image
+        switch(strtolower($image -> getExtension())) {
 
-		//Create color
-		$color = imagecolorallocate($img, $this -> color['r'], $this -> color['g'], $this -> color['b']);
+            case 'png' 	: $img = imagecreatefrompng($image -> getPath()); break;
+            default 	: $img = imagecreatefromjpeg($image -> getPath());
+        }
 
-		for($i = 0; $i < strlen($text); $i++) {
+        //Generate output object
+        $output = [];
 
-			$fontsize 	= rand($this -> fontsize['min'], $this -> fontsize['max']);
-			$angle 		= rand($this -> angle['min'], $this -> angle['max']);
-			$tb 		= imagettfbbox($fontsize, $angle, $font -> getPath(), $text[$i]);
-			
-			$width 		= $image -> getWidth() / strlen($text);
-			$width 		= $width < 2 ? 3 : $width;
-			$tries 		= 0;
+        //Create color
+        $color = imagecolorallocate($img, $this -> color['r'], $this -> color['g'], $this -> color['b']);
 
-			if($tb[2] >= $width && $tries < 20) {
+        for($i = 0; $i < strlen($text); $i++) {
 
-				$this -> fontsize['min']--;
-				$i--;
-				$tries++;
+            $fontsize 	= rand($this -> fontsize['min'], $this -> fontsize['max']);
+            $angle 		= rand($this -> angle['min'], $this -> angle['max']);
+            $tb 		= imagettfbbox($fontsize, $angle, $font -> getPath(), $text[$i]);
 
-				if($tries > 20) {
-				    break;
+            $width 		= $image -> getWidth() / strlen($text);
+            $width 		= $width < 2 ? 3 : $width;
+            $tries 		= 0;
+
+            if($tb[2] >= $width && $tries < 20) {
+
+                $this -> fontsize['min']--;
+                $i--;
+                $tries++;
+
+                if($tries > 20) {
+                    break;
                 }
-			}
+            }
 
-			$output[] = [
+            $output[] = [
 
-				'text' 		=> $text[$i], 
-				'width' 	=> $tb[2], 
-				'height' 	=> $tb[1],
-				'angle'		=> $angle,
-				'fontsize' 	=> $fontsize, 
-				'color' 	=> $color
-			];
-		}
+                'text' 		=> $text[$i],
+                'width' 	=> $tb[2],
+                'height' 	=> $tb[1],
+                'angle'		=> $angle,
+                'fontsize' 	=> $fontsize,
+                'color' 	=> $color
+            ];
+        }
 
-		foreach($output as $index => $char) {
+        foreach($output as $index => $char) {
 
-			$x = $width * $index + rand(0, $width - $char['width']);
-			$y = rand($char['fontsize'], $image -> getHeight() - $char['height']);
-			
-			imagettftext($img, $char['fontsize'], $char['angle'], $x, $y, $char['color'], $font -> getPath(), $char['text']);
-		}
-		
-		$extension 	= $file !== null ? $file -> getExtension() : $image -> getExtension();
-		$file 		= $file !== null ? $file -> getPath() : null;
+            $x = $width * $index + rand(0, $width - $char['width']);
+            $y = rand($char['fontsize'], $image -> getHeight() - $char['height']);
 
-		//Add noise
-		if($this -> noise > 0) {
+            imagettftext($img, $char['fontsize'], $char['angle'], $x, $y, $char['color'], $font -> getPath(), $char['text']);
+        }
 
-			for($i = 0; $i < $this -> noise; $i++) {
+        $extension 	= $file !== null ? $file -> getExtension() : $image -> getExtension();
+        $file 		= $file !== null ? $file -> getPath() : null;
 
-				imagesetthickness($img, mt_rand(0, 2));
-				
-				$x1 = rand(0, $image -> getWidth());
-				$x2 = rand(0, $image -> getWidth());
-				$y1 = rand(0, $image -> getHeight());
-				$y2 = rand(0, $image -> getHeight());
+        //Add noise
+        if($this -> noise > 0) {
 
-				imageline($img, $x1, $x2, $y1, $y2, $color);
-			}
-		}
+            for($i = 0; $i < $this -> noise; $i++) {
 
-		//Show image
-		switch(strtolower($extension)) {
-			
-			case 'png' 	: imagepng($img, $file); break;
-			default 	: imagejpeg($img, $file);
-		}
-	}
+                imagesetthickness($img, mt_rand(0, 2));
+
+                $x1 = rand(0, $image -> getWidth());
+                $x2 = rand(0, $image -> getWidth());
+                $y1 = rand(0, $image -> getHeight());
+                $y2 = rand(0, $image -> getHeight());
+
+                imageline($img, $x1, $x2, $y1, $y2, $color);
+            }
+        }
+
+        //Show image
+        switch(strtolower($extension)) {
+
+            case 'png' 	: imagepng($img, $file); break;
+            default 	: imagejpeg($img, $file);
+        }
+    }
 }
